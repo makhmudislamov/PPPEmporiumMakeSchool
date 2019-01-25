@@ -56,5 +56,8 @@ module.exports = (app) => {
     });
   });
 
-  
+  // SEARCH PET
+app.get('/search', (req, res) => {
+  res.render('pets-index', { pets: [0] });
+});
 }
