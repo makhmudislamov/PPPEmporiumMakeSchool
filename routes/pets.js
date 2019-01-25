@@ -58,11 +58,14 @@ module.exports = (app) => {
 
   // SEARCH PET
   app.get('/search', (req, res) => {
-    // creating new object term
     term = new RegExp(req.query.term, 'i')
 
-    // searching using Pet model
-    Pet.find({ 'name': term }).exec((err, pets) => {
+    Pet.find({
+      $or: [
+        { 'name': term },
+        { 'species': term }
+      ]
+    }).exec((err, pets) => {
       res.render('pets-index', { pets: pets });
     })
   });
