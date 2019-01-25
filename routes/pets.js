@@ -1,5 +1,9 @@
 // MODELS
 const Pet = require('../models/pet');
+// UPLOADING TO AWS S3
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' });
+const Upload = require('s3-uploader');
 
 // PET ROUTES
 module.exports = (app) => {
