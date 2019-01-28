@@ -41,6 +41,7 @@ module.exports = (app) => {
   // CREATE PET
   app.post('/pets', upload.single('avatar'), (req, res, next) => {
     var pet = new Pet(req.body);
+    console.log(pet)
     pet.save(function (err) {
       if (req.file) {
         client.upload(req.file.path, {}, function (err, versions, meta) {
