@@ -13,11 +13,11 @@ block content
       p Born on #{pet.birthday}
       p=pet.description
       .text-right
-        form(action='your-server-side-code', method='POST')
+        form(action=`/pets/${pet._id}/purchase`, method='POST')
         script.stripe-button(src='https://checkout.stripe.com/checkout.js',
-        data-key='pk_test_TYooMQauvdEDq54NiTphI7jx',
+        data-key=PUBLIC_STRIPE_API_KEY,
         data-amount='999',
-        data-name='Stripe.com',
+        data-name="Proud Pete's Pet Emporium",
         data-description='Widget',
         data-image='https://stripe.com/img/documentation/checkout/marketplace.png',
         data-locale='auto',

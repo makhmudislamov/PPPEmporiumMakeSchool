@@ -114,4 +114,9 @@ module.exports = (app) => {
       });
   });
 
+  // PURCHASE
+  app.post('/pets/:id/purchase', (req, res) => {
+    console.log(`purchase body: ${ req.body }`);
+  });
+
 }
