@@ -17,10 +17,11 @@ const mg = require('nodemailer-mailgun-transport');
 
 const auth = {
   auth: {
-    api_key: 'key-keyaldkjfadfasdfadsfadsf',
-    domain: 'domain.com'
+    api_key: process.env.MAILGUN_API_KEY,
+    domain: process.env.EMAIL_DOMAIN
   }
 }
+
 
 const nodemailerMailgun = nodemailer.createTransport(mg(auth));
 
