@@ -12,6 +12,17 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override')
+const nodemailer = require('nodemailer');
+const mg = require('nodemailer-mailgun-transport');
+
+const auth = {
+  auth: {
+    api_key: 'key-keyaldkjfadfasdfadsfadsf',
+    domain: 'domain.com'
+  }
+}
+
+const nodemailerMailgun = nodemailer.createTransport(mg(auth));
 
 const app = express();
 
