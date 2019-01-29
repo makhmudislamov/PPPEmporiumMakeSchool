@@ -52,6 +52,7 @@ module.exports = (app) => {
   // CREATE PET
   app.post('/pets', upload.single('avatar'), (req, res, next) => {
     var pet = new Pet(req.body);
+
     console.log(pet)
     pet.save(function (err) {
       if (req.file) {
@@ -125,10 +126,17 @@ module.exports = (app) => {
       });
   });
 
+
+// app.post('/test', (req, res) => {
+//   console.log('inside test')
+//   res.end()
+// });
+
   // PURCHASE
   app.post('/pets/:id/purchase', (req, res) => {
-    console.log(req.body);
     console.log('inside purchase');
+    console.log(req.body);
+    
     // Set your secret key: remember to change this to your live secret key in production
     // See your keys here: https://dashboard.stripe.com/account/apikeys
     var stripe = require("stripe")(process.env.PRIVATE_STRIPE_API_KEY);
