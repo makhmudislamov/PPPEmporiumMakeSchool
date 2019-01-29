@@ -125,14 +125,20 @@ module.exports = (app) => {
     // Get the payment token ID submitted by the form:
     const token = req.body.stripeToken; // Using Express
 
-    const charge = stripe.charges.create({
-      amount: 999,
-      currency: 'usd',
-      description: 'Example charge',
-      source: token,
-    }).then(() => {
-      res.redirect(`/pets/${req.params.id}`);
-    });
+    Pet.findById(req.body.petId).exec((err, pet) => {
+      const charge = stripe.charges.create({
+        amount: pet.price * 100,
+        currency: 'usd',
+        description: `Purchased ${pet.name}, ${pet.species}`,
+        source: token,
+      }).then((chg) => {
+        res.redirect(`/pets/${req.params.id}`);
+      });
+    })
+      .catch(err => {
+        console.log('Error: ' + err);
+      });
   });
+
 
 }
