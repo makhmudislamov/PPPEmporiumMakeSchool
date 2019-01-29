@@ -15,6 +15,11 @@ const methodOverride = require('method-override')
 const nodemailer = require('nodemailer');
 const mg = require('nodemailer-mailgun-transport');
 
+const app = express();
+
+const mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/petes-pets');
+
 const auth = {
   auth: {
     api_key: process.env.MAILGUN_API_KEY,
@@ -22,13 +27,29 @@ const auth = {
   }
 }
 
-
 const nodemailerMailgun = nodemailer.createTransport(mg(auth));
 
-const app = express();
+// SEND EMAIL
+const user = {
+  email: 'mislamov@mail.ccsf.edu',
+  name: 'Emily',
+  age: '43'
+};
 
-const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/petes-pets');
+nodemailerMailgun.sendMail({
+  from: 'no-reply@example.com',
+  to: user.email, // An array if you have multiple recipients.
+  subject: 'Hey you, awesome!',
+  template: {
+    name: 'email.handlebars',
+    engine: 'handlebars',
+    context: user
+  }
+}).then(info => {
+  console.log('Response: ' + info);
+}).catch(err => {
+  console.log('Error: ' + err);
+});
 
 // passin Stripe api
 app.locals.PUBLIC_STRIPE_API_KEY = process.env.PUBLIC_STRIPE_API_KEY
