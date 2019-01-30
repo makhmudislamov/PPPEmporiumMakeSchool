@@ -3,6 +3,8 @@ if (!process.env.PORT) {
   process.env.NODE_ENV = "dev"
 }
 
+
+
 const express = require('express');
 const path = require('path');
 // serving favicon
@@ -11,9 +13,7 @@ const favicon = require('serve-favicon');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
-const methodOverride = require('method-override')
-
-
+const methodOverride = require('method-override');
 const app = express();
 
 const mongoose = require('mongoose');
@@ -81,5 +81,8 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500);
   res.render('error');
 });
+
+const port = process.env.PORT || 3000;
+app.listen(port);
 
 module.exports = app;
