@@ -1,7 +1,5 @@
 Blocker 1 on page 5
 - cannot save new pet - SOLVED
-BLocker - stripe dashboard not showing test purchase
-
-different route fo testing
+BLocker - stripe dashboard not showing test purchase >> indentation on show.pug
 
 blocker - cant send test email >> unverified domain
