@@ -136,12 +136,12 @@ module.exports = (app) => {
     
     // Set your secret key: remember to change this to your live secret key in production
     // See your keys here: https://dashboard.stripe.com/account/apikeys
-    var stripe = require("stripe")(process.env.PRIVATE_STRIPE_API_KEY);
+    const stripe = require("stripe")(process.env.PRIVATE_STRIPE_API_KEY);
 
     // Token is created using Checkout or Elements!
     // Get the payment token ID submitted by the form:
     const token = req.body.stripeToken; // Using Express
-    let petId = req.body.petId || req.params.id;
+    const petId = req.body.petId || req.params.id;
 
     Pet.findById(petId).exec((err, pet) => {
       if (err) {
@@ -166,22 +166,21 @@ module.exports = (app) => {
           to: user.email, // An array if you have multiple recipients.
           subject: 'Pet Purchased!',
           template: {
-            name: 'email.handlebars',
+            name: 'email.handlebars',  // TODO: change it to pug
             engine: 'handlebars',
             context: user
           }
         }).then(info => {
-          console.log('Response: ' + info);
-          res.redirect(`/pets/${req.params.id}`);
-        }).catch(err => {
+            console.log('Response: ' + info);
+            res.redirect(`/pets/${req.params.id}`);
+           }).catch(err => {
+              console.log('Error: ' + err);
+              res.redirect(`/pets/${req.params.id}`);
+             });
+      }).catch(err => {
           console.log('Error: ' + err);
-          res.redirect(`/pets/${req.params.id}`);
         });
-      })
-        .catch(err => {
-          console.log('Error: ' + err);
-        });
-    })
+    });
   });
 
 

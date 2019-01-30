@@ -3,3 +3,6 @@ Blocker 1 on page 5
 BLocker - stripe dashboard not showing test purchase >> indentation on show.pug
 
 blocker - cant send test email >> unverified domain
+
+TASK >>> optimization : variable devlaration, multiple save
+https://eslint.org/docs/user-guide/getting-started
