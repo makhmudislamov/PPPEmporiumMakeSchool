@@ -3,48 +3,20 @@ if (!process.env.PORT) {
   process.env.NODE_ENV = "dev"
 }
 
-
-
 const express = require('express');
 const path = require('path');
-// serving favicon
 const favicon = require('serve-favicon');
-// HTTP request logger middleware for node.js
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
+const nodemailer = require('nodemailer');
+const mg = require('nodemailer-mailgun-transport');
+
 const app = express();
 
 const mongoose = require('mongoose');
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/petes-pets', { useNewUrlParser: true });
-
-
-
-// SEND EMAIL
-// const user = {
-//   email: 'mislamov@mail.ccsf.edu',
-//   name: 'Emily',
-//   age: '43'
-// };
-
-// nodemailerMailgun.sendMail({
-//   from: 'no-reply@example.com',
-//   to: user.email, // An array if you have multiple recipients.
-//   subject: 'Hey you, awesome!',
-//   template: {
-//     name: 'email.handlebars',
-//     engine: 'handlebars',
-//     context: user
-//   }
-// }).then(info => {
-//   console.log('Response: ' + info);
-// }).catch(err => {
-//   console.log('Error: ' + err);
-// });
-
-// passin Stripe api
-app.locals.PUBLIC_STRIPE_API_KEY = process.env.PUBLIC_STRIPE_API_KEY
+mongoose.connect('mongodb://localhost/petes-pets');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -82,7 +54,7 @@ app.use((err, req, res, next) => {
   res.render('error');
 });
 
-const port = process.env.PORT || 3000;
-app.listen(port);
+// stripe
+app.locals.PUBLIC_STRIPE_API_KEY = process.env.PUBLIC_STRIPE_API_KEY;
 
 module.exports = app;
